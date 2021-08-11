@@ -1,1 +1,1 @@
-# Plant Manager 🍃
+# Plant Manager 🌱
