@@ -1,20 +1,20 @@
-import React , { useContext } from 'react'
-import { NavigationContainer } from '@react-navigation/native'
+import React, {useContext} from 'react';
+import {NavigationContainer} from '@react-navigation/native';
 
-import AuthContext from '../context/auth'
+import AuthContext from '../context/auth';
 
-import StackRoutes from './stack.routes'
+import StackRoutes from './stack.routes';
 
 export default function Routes() {
-  
-  const { loading } = useContext(AuthContext)
-  
-  if(loading)
-    return null
+  const {loading} = useContext(AuthContext);
 
-  return(
+  if (loading) {
+    return null;
+  }
+
+  return (
     <NavigationContainer>
       <StackRoutes />
     </NavigationContainer>
-  )
+  );
 }

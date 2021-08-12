@@ -1,5 +1,5 @@
-import React, { createContext, useState, useEffect } from "react"
-import AsyncStorage from '@react-native-async-storage/async-storage'
+import React, {createContext, useState, useEffect} from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 interface AuthContextData {
   user: string;
@@ -10,43 +10,44 @@ interface AuthContextData {
 
 const AuthContext = createContext({} as AuthContextData);
 
-export const AuthProvider: React.FC = ({ children }) => {
-  
-  const [user, setUser] = useState('')
-  const [plants, setPlants] = useState<[] | null>(null)
-  const [loading, setLoading] = useState(true)
+export const AuthProvider: React.FC = ({children}) => {
+  const [user, setUser] = useState('');
+  const [plants, setPlants] = useState<[] | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function loadStoragedData() {
-      const storagedPlants = await AsyncStorage.getItem('@plantManager:plants')
-      const storagedName = await AsyncStorage.getItem('@plantManager:user')
+      const storagedPlants = await AsyncStorage.getItem('@plantManager:plants');
+      const storagedName = await AsyncStorage.getItem('@plantManager:user');
 
-      if(storagedPlants)
-        setPlants(JSON.parse(storagedPlants))
-        
-      if(storagedName)
-        setUser(storagedName)
+      if (storagedPlants) {
+        setPlants(JSON.parse(storagedPlants));
+      }
 
-      setLoading(false)
-      
+      if (storagedName) {
+        setUser(storagedName);
+      }
+
+      setLoading(false);
     }
-    loadStoragedData()
-  }, [])
+    loadStoragedData();
+  }, []);
 
   async function setUserName(name: string) {
-    await AsyncStorage.setItem('@plantManager:user', name)
+    await AsyncStorage.setItem('@plantManager:user', name);
   }
-  
-  return(
-    <AuthContext.Provider value={{
-      user,
-      plants,
-      loading,
-      setUserName,
-    }}>
-      { children }
+
+  return (
+    <AuthContext.Provider
+      value={{
+        user,
+        plants,
+        loading,
+        setUserName,
+      }}>
+      {children}
     </AuthContext.Provider>
-  )
-}
+  );
+};
 
 export default AuthContext;
