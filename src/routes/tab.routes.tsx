@@ -22,10 +22,6 @@ export default function TabRoutes() {
         activeTintColor: colors.green,
         inactiveTintColor: colors.heading,
         labelPosition: 'beside-icon',
-        style: {
-          paddingVertical: 20,
-          height: 88,
-        },
       }}>
       <BottomTab.Screen
         name={'Nova Planta'}

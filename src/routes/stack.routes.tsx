@@ -24,17 +24,7 @@ export default function StackRoutes() {
           backgroundColor: colors.white,
         },
       }}>
-      {user ? (
-        <Fragment>
-          <Stack.Screen name="plantSelect" component={TabRoutes} />
-
-          <Stack.Screen name="plantSave" component={PlantSave} />
-
-          <Stack.Screen name="myPlants" component={TabRoutes} />
-
-          <Stack.Screen name="confirmation" component={Confirmation} />
-        </Fragment>
-      ) : (
+      {!user && (
         <Fragment>
           <Stack.Screen name="wellcome" component={Wellcome} />
 
@@ -42,10 +32,16 @@ export default function StackRoutes() {
             name="userIdentification"
             component={UserIdentification}
           />
-
-          <Stack.Screen name="confirmation" component={Confirmation} />
         </Fragment>
       )}
+
+      <Stack.Screen name="plantSelect" component={TabRoutes} />
+
+      <Stack.Screen name="plantSave" component={PlantSave} />
+
+      <Stack.Screen name="myPlants" component={TabRoutes} />
+
+      <Stack.Screen name="confirmation" component={Confirmation} />
     </Stack.Navigator>
   );
 }

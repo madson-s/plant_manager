@@ -49,7 +49,7 @@ export default function PlantSelect() {
     }
 
     const filtered = plants.filter(plant => {
-      plant.environments.includes(environment);
+      return plant.environments.includes(environment);
     });
 
     setFilteredPlants(filtered);
