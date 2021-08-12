@@ -1,20 +1,20 @@
-import React from 'react'
-import { View, StyleSheet, } from 'react-native'
-import LottieView from 'lottie-react-native'
+import React from 'react';
+import {View, StyleSheet} from 'react-native';
+import LottieView from 'lottie-react-native';
 
-import loadAnimation from '../assets/animations/load.json'
+import loadAnimation from '../assets/animations/load.json';
 
 export default function Load() {
-  return(
+  return (
     <View style={styles.container}>
       {/* <LottieView
-        style={styles.animation} 
+        style={styles.animation}
         source={loadAnimation}
         autoPlay
         loop
       /> */}
     </View>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
@@ -28,4 +28,4 @@ const styles = StyleSheet.create({
     width: 200,
     height: 200,
   },
-})
+});

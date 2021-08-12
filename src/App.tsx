@@ -1,14 +1,14 @@
-import React from 'react'
+import React from 'react';
 
-import Routes from './routes'
-import { AuthProvider } from './context/auth'
+import Routes from './routes';
+import {AuthProvider} from './context/auth';
 
 function App() {
-  return(
+  return (
     <AuthProvider>
-      <Routes/>
+      <Routes />
     </AuthProvider>
-  )
+  );
 }
 
 export default App;
