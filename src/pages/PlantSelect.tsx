@@ -9,6 +9,7 @@ import {
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useNavigation} from '@react-navigation/core';
 
+import Load from '../components/Load';
 import Header from '../components/Header';
 import PlantCardPrimary from '../components/PlantCardPrimary';
 import EnvironmentButton from '../components/EnvironmentButton';
@@ -34,6 +35,7 @@ export default function PlantSelect() {
 
   // const [page, setPage] = useState(1);
   const [loadingMore, setLoadingMore] = useState(true);
+  const [loading, setLoading] = useState(true);
 
   const [userName, setUserName] = useState('');
 
@@ -110,14 +112,16 @@ export default function PlantSelect() {
     }
 
     fetchEnvironments();
+    setLoading(false);
   }, []);
 
   useEffect(() => {
     fetchPlants();
   }, [fetchPlants]);
 
-  // if(loading)
-  //   return <Load/>
+  if (loading) {
+    return <Load />;
+  }
 
   return (
     <View style={styles.container}>

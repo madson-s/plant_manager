@@ -36,27 +36,34 @@ export default function MyPlants() {
 
       const plants = realm.objects('Plant');
 
-      if (plants.length) {
-        const nextTime = formatDistance(
-          new Date(plants[0].timeNotification).getTime(),
-          new Date().getTime(),
-          {locale: pt},
-        );
-
-        setNextWaterd(`Não esquece de regar a ${plants[0].name} à ${nextTime}`);
-      } else {
-        setNextWaterd('Você ainda não tem nenhuma planta salva');
-      }
-
-      // setMyPlants(storagedPlants)
-
-      setMyPlants(plants);
+      plants.addListener(() => {
+        setMyPlants([...plants]);
+      });
 
       setLoading(false);
+
+      return () => {
+        plants.removeAllListeners();
+        realm.close();
+      };
     }
 
     loadPlants();
   }, []);
+
+  useEffect(() => {
+    if (myPlants.length) {
+      const nextTime = formatDistance(
+        new Date(myPlants[0].timeNotification).getTime(),
+        new Date().getTime(),
+        {locale: pt},
+      );
+
+      setNextWaterd(`Não esquece de regar a ${myPlants[0].name} à ${nextTime}`);
+    } else {
+      setNextWaterd('Você ainda não tem nenhuma planta salva');
+    }
+  }, [myPlants]);
 
   function handleRemove(plant: PlantProps) {
     Alert.alert(
@@ -76,10 +83,6 @@ export default function MyPlants() {
                 realm.delete(plant);
               });
               // await removePlant(plant)
-              realm.close();
-              setMyPlants(prevState => {
-                return prevState.filter(prevPlant => prevPlant.id !== plant.id);
-              });
             } catch (err) {
               console.log(err);
               Alert.alert('Não foi possivel remover 😢');
