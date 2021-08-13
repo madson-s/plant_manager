@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
-import Realm from 'realm';
 import {View, Image, Text, StyleSheet, FlatList, Alert} from 'react-native';
 import {formatDistance} from 'date-fns';
 import {pt} from 'date-fns/locale';
+import Realm from 'realm';
 
 import {
   // removePlant,

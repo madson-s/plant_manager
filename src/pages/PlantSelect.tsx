@@ -5,6 +5,7 @@ import {
   Text,
   FlatList,
   ActivityIndicator,
+  BackHandler,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useNavigation} from '@react-navigation/core';
@@ -13,6 +14,7 @@ import Load from '../components/Load';
 import Header from '../components/Header';
 import PlantCardPrimary from '../components/PlantCardPrimary';
 import EnvironmentButton from '../components/EnvironmentButton';
+import {ExitModal} from '../components/ExitModal';
 
 import {PlantProps} from '../libs/storage';
 
@@ -32,6 +34,7 @@ export default function PlantSelect() {
   const [plants, setPlants] = useState<PlantProps[]>([]);
   const [filteredPlants, setFilteredPlants] = useState<PlantProps[]>([]);
   const [environmentSelected, setEnvironmentSelected] = useState('all');
+  const [modalVisible, setModalVisible] = useState(false);
 
   // const [page, setPage] = useState(1);
   const [loadingMore, setLoadingMore] = useState(true);
@@ -91,6 +94,13 @@ export default function PlantSelect() {
   // }
 
   useEffect(() => {
+    BackHandler.addEventListener('hardwareBackPress', () => {
+      setModalVisible(prevState => !prevState);
+      return true;
+    });
+  });
+
+  useEffect(() => {
     async function getUserName() {
       const user = await AsyncStorage.getItem('@plantManager:user');
       setUserName(user || '');
@@ -125,6 +135,11 @@ export default function PlantSelect() {
 
   return (
     <View style={styles.container}>
+      <ExitModal
+        BackHandler={BackHandler}
+        setModalVisible={setModalVisible}
+        modalVisible={modalVisible}
+      />
       <Header userName={userName} />
 
       <Text style={styles.title}> Em qual ambiente </Text>
